@@ -1,0 +1,22 @@
+name: Build & Release
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build-release:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: ./build.sh
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          files: dist/mouselock.dmg
+          fail_on_unmatched_files: true
+          generate_release_notes: true
