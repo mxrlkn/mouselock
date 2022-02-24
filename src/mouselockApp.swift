@@ -25,11 +25,21 @@ class AppState: ObservableObject {
 
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    var lastTime: TimeInterval = 0;
     var oldDeltaX: CGFloat = 0;
     var oldDeltaY: CGFloat = 0;
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .leftMouseDragged, .rightMouseDragged], handler: {(event: NSEvent) in
+            if (self.lastTime != 0) { // ignore old events
+                if (event.timestamp <= self.lastTime) {
+                    self.oldDeltaX = 0;
+                    self.oldDeltaY = 0;
+                    self.lastTime = 0;
+                    return;
+                }
+            }
+                       
             let deltaX = event.deltaX - self.oldDeltaX;
             let deltaY = event.deltaY - self.oldDeltaY;
             let x = event.locationInWindow.flipped.x;
@@ -47,12 +57,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // confine points to width and height
             let xPoint = clamp(x + deltaX, minValue: widthCut, maxValue: window.width - widthCut);
             let yPoint = clamp(y + deltaY, minValue: heightCut, maxValue: window.height - heightCut);
-
+            
             // save old deltas
             self.oldDeltaX = xPoint - x;
             self.oldDeltaY = yPoint - y;
             
             CGWarpMouseCursorPosition(CGPoint(x: xPoint, y: yPoint));
+            self.lastTime = ProcessInfo.processInfo.systemUptime;
         });
     }
 }
