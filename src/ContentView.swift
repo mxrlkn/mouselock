@@ -5,11 +5,35 @@ struct ContentView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Width").padding(.bottom, -3)
-            TextField("Width", text: $appState.width)
-                .padding(.bottom, 15)
-            Text("Height").padding(.bottom, -3)
-            TextField("Height", text: $appState.height)
-        }.padding(30).padding(.top, -10).frame(width: 300, height: 160)
+            Text("Resolution").font(.title2).padding(.bottom, 3)
+            HStack() {
+                VStack(alignment: .leading) {
+                    Text("Width").padding(.bottom, -4)
+                    TextField("Width", text: $appState.width)
+                }
+                VStack(alignment: .leading) {
+                    Text("Height").padding(.bottom, -4)
+                    TextField("Height", text: $appState.height)
+                }
+            }.padding(.bottom)
+            Text("Control keys").font(.title2).padding(.bottom, 3)
+            VStack(alignment: .leading) {
+                Text("Keys that take control of the mouse, like quick pings in League, comma-separated.").padding(.bottom, -4).fixedSize(horizontal: false, vertical: true)
+                TextField("z,x,c", text: $appState.controlkeys)
+                Text("Needs accessibility permissions. Click here to check.").font(.caption).padding(.top, -5)
+                .onTapGesture {
+                    // run to reset permissions
+                    // tccutil reset Accessibility mxrlkn.mouselock
+                    AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary);
+                }
+                .onHover { inside in
+                    if inside {
+                        NSCursor.pointingHand.push();
+                    } else {
+                        NSCursor.pop();
+                    }
+                }
+            }
+        }.padding(30).padding(.top, -5).frame(width: 340)
     }
 }

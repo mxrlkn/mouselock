@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		0E577D8927BD9D5F002B61CC /* mouselockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E577D8827BD9D5F002B61CC /* mouselockApp.swift */; };
 		0E577D8B27BD9D5F002B61CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E577D8A27BD9D5F002B61CC /* ContentView.swift */; };
+		0E8210F227CD81D000DB2E0B /* CGKeyCodeInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8210F127CD81D000DB2E0B /* CGKeyCodeInitializers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E577D8527BD9D5F002B61CC /* mouselock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mouselock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E577D8827BD9D5F002B61CC /* mouselockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mouselockApp.swift; sourceTree = "<group>"; };
 		0E577D8A27BD9D5F002B61CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0E8210F127CD81D000DB2E0B /* CGKeyCodeInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGKeyCodeInitializers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 			children = (
 				0E577D8827BD9D5F002B61CC /* mouselockApp.swift */,
 				0E577D8A27BD9D5F002B61CC /* ContentView.swift */,
+				0E8210F127CD81D000DB2E0B /* CGKeyCodeInitializers.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -123,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E577D8B27BD9D5F002B61CC /* ContentView.swift in Sources */,
+				0E8210F227CD81D000DB2E0B /* CGKeyCodeInitializers.swift in Sources */,
 				0E577D8927BD9D5F002B61CC /* mouselockApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

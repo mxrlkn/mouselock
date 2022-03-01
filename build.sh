@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # get latest tag starting with v
 VERSION=$(git tag -l 'v*' --sort=-v:refname | head -1)

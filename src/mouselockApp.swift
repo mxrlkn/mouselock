@@ -16,37 +16,67 @@ class AppState: ObservableObject {
     static let shared = AppState();
     
     @Published var width: String = UserDefaults.standard.string(forKey: "width") ?? "1920" {
-        didSet { UserDefaults.standard.set(self.width, forKey: "width") }
+        didSet {UserDefaults.standard.set(self.width, forKey: "width")}
     };
     @Published var height: String = UserDefaults.standard.string(forKey: "height") ?? "1080" {
-        didSet { UserDefaults.standard.set(self.height, forKey: "height") }
+        didSet {UserDefaults.standard.set(self.height, forKey: "height")}
+    };
+    @Published var controlkeys: String = UserDefaults.standard.string(forKey: "controlkeys") ?? "" {
+        didSet {UserDefaults.standard.set(self.controlkeys, forKey: "controlkeys")}
     };
 }
 
-
 class AppDelegate: NSObject, NSApplicationDelegate {
     var lastTime: TimeInterval = 0;
-    var oldDeltaX: CGFloat = 0;
-    var oldDeltaY: CGFloat = 0;
-
+    var lastDeltaX: CGFloat = 0;
+    var lastDeltaY: CGFloat = 0;
+    var keyDown: Bool = false;
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .leftMouseDragged, .rightMouseDragged], handler: {(event: NSEvent) in
             if (self.lastTime != 0) { // ignore old events
                 if (event.timestamp <= self.lastTime) {
-                    self.oldDeltaX = 0;
-                    self.oldDeltaY = 0;
-                    self.lastTime = 0;
+                    self.lastDeltaX = 0;
+                    self.lastDeltaY = 0;
                     return;
                 }
             }
-                       
-            let deltaX = event.deltaX - self.oldDeltaX;
-            let deltaY = event.deltaY - self.oldDeltaY;
+            
+            // check controlkeys
+            let controlkey = AppState.shared.controlkeys
+                .filter {!$0.isWhitespace}
+                .components(separatedBy: ",")
+                .filter { key in return key != ""}
+                .map { CGKeyCode(character: $0) ?? nil}
+                .filter { key in return key != nil}
+                .map { CGEventSource.keyState(.combinedSessionState, key: $0!)}
+                .contains(true)
+            
+            // if any of the controlkeys are pressed down, stop and reset mouse handling
+            if (controlkey) {
+                self.keyDown = true;
+                self.lastDeltaX = 0;
+                self.lastDeltaY = 0;
+                self.lastTime = 0;
+                return;
+            }
+            
+            // keys released
+            if (self.keyDown) {
+                // mouse jumps around after other program releases mouse, waiting for a bit fixes it...
+                self.lastTime = ProcessInfo.processInfo.systemUptime + 0.01;
+                self.keyDown = false;
+                return;
+            }
+            
+            // mouse lock
+            let deltaX = event.deltaX - self.lastDeltaX;
+            let deltaY = event.deltaY - self.lastDeltaY;
             let x = event.locationInWindow.flipped.x;
             let y = event.locationInWindow.flipped.y;
 
-            let window = (NSScreen.main?.frame.size)!;
-
+            let window = (NSScreen.main?.frame.size)!
+            
             let width = CGFloat(Int(AppState.shared.width) ?? Int(window.width));
             let height = CGFloat(Int(AppState.shared.height) ?? Int(window.height));
             
@@ -59,8 +89,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let yPoint = clamp(y + deltaY, minValue: heightCut, maxValue: window.height - heightCut);
             
             // save old deltas
-            self.oldDeltaX = xPoint - x;
-            self.oldDeltaY = yPoint - y;
+            self.lastDeltaX = xPoint - x;
+            self.lastDeltaY = yPoint - y;
             
             CGWarpMouseCursorPosition(CGPoint(x: xPoint, y: yPoint));
             self.lastTime = ProcessInfo.processInfo.systemUptime;
