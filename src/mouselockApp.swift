@@ -24,6 +24,9 @@ class AppState: ObservableObject {
     @Published var controlkeys: String = UserDefaults.standard.string(forKey: "controlkeys") ?? "" {
         didSet {UserDefaults.standard.set(self.controlkeys, forKey: "controlkeys")}
     };
+    @Published var pause: Bool = UserDefaults.standard.bool(forKey: "pause") {
+        didSet {UserDefaults.standard.set(self.pause, forKey: "pause")}
+    };
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -40,6 +43,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.lastDeltaY = 0;
                     return;
                 }
+            }
+            
+            // pause
+            if (AppState.shared.pause) {
+                return;
             }
             
             // check controlkeys

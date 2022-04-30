@@ -33,7 +33,8 @@ struct ContentView: View {
                         NSCursor.pop();
                     }
                 }
-            }
+            }.padding(.bottom)
+            Toggle("Pause", isOn: $appState.pause).toggleStyle(.switch)
         }.padding(30).padding(.top, -5).frame(width: 340)
     }
 }
