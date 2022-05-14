@@ -18,7 +18,7 @@ struct ContentView: View {
             }.padding(.bottom)
             Text("Control keys").font(.title2).padding(.bottom, 3)
             VStack(alignment: .leading) {
-                Text("Keys that take control of the mouse, like quick pings in League, comma-separated.").padding(.bottom, -4).fixedSize(horizontal: false, vertical: true)
+                Text("Keys that take control of the mouse, like quick pings in League, comma-separated.").fixedSize(horizontal: false, vertical: true)
                 TextField("z,x,c", text: $appState.controlkeys)
                 Text("Needs accessibility permissions. Click here to check.").font(.caption).padding(.top, -5)
                 .onTapGesture {
@@ -34,8 +34,17 @@ struct ContentView: View {
                     }
                 }
             }.padding(.bottom)
-            Toggle("Pause", isOn: $appState.pause).toggleStyle(.switch)
-            Toggle("League Only", isOn: $appState.leagueonly).toggleStyle(.switch)
+            Text("Activate").font(.title2).padding(.bottom, 3)
+            VStack(alignment: .leading) {
+                Text("Activate only when one of these programs are in focus or always.").fixedSize(horizontal: false, vertical: true)
+                ForEach(self.appState.games.sorted(by: >), id: \.key) { key, value in
+                    Toggle(value, isOn: Binding(
+                        get: {self.appState.activegames[key] ?? false},
+                        set: {value in self.appState.activegames[key] = value}
+                    )).disabled(self.appState.active)
+                }
+                Toggle("Always", isOn: $appState.active)
+            }
         }.padding(30).padding(.top, -5).frame(width: 340)
     }
 }

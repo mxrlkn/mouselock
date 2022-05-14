@@ -15,6 +15,8 @@ struct mouselockApp: App {
 class AppState: ObservableObject {
     static let shared = AppState();
     
+    @Published var games: Dictionary<String, String> = ["com.riotgames.LeagueofLegends.GameClient": "League of Legends"]
+    
     @Published var width: String = UserDefaults.standard.string(forKey: "width") ?? "1920" {
         didSet {UserDefaults.standard.set(self.width, forKey: "width")}
     };
@@ -24,11 +26,11 @@ class AppState: ObservableObject {
     @Published var controlkeys: String = UserDefaults.standard.string(forKey: "controlkeys") ?? "" {
         didSet {UserDefaults.standard.set(self.controlkeys, forKey: "controlkeys")}
     };
-    @Published var pause: Bool = UserDefaults.standard.bool(forKey: "pause") {
-        didSet {UserDefaults.standard.set(self.pause, forKey: "pause")}
+    @Published var active: Bool = UserDefaults.standard.bool(forKey: "active") {
+        didSet {UserDefaults.standard.set(self.active, forKey: "active")}
     };
-    @Published var leagueonly: Bool = UserDefaults.standard.bool(forKey: "leagueonly") {
-        didSet {UserDefaults.standard.set(self.leagueonly, forKey: "leagueonly")}
+    @Published var activegames: Dictionary<String, Bool> = UserDefaults.standard.dictionary(forKey: "activegames") as? [String: Bool] ?? [:] {
+        didSet {UserDefaults.standard.set(self.activegames, forKey: "activegames")}
     };
 }
 
@@ -37,8 +39,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastDeltaX: CGFloat = 0;
     var lastDeltaY: CGFloat = 0;
     var keyDown: Bool = false;
-    
+        
     func applicationDidFinishLaunching(_ notification: Notification) {
+        
+        // remove stale games from activegames
+        for (key, _) in AppState.shared.activegames {
+            if (AppState.shared.games[key] == nil) {
+                AppState.shared.activegames.removeValue(forKey: key);
+            }
+        }
+        
         NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .leftMouseDragged, .rightMouseDragged], handler: {(event: NSEvent) in
             if (self.lastTime != 0) { // ignore old events
                 if (event.timestamp <= self.lastTime) {
@@ -48,18 +58,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             
-            // pause
-            if (AppState.shared.pause) {
+            // pause if not activated
+            if (AppState.shared.active == false && (AppState.shared.activegames[(NSWorkspace().frontmostApplication?.bundleIdentifier)!] ?? false) == false) {
                 return;
             }
-
-            // Is league running?
-            if (AppState.shared.leagueonly) {
-                if (NSWorkspace().frontmostApplication?.bundleIdentifier != "com.riotgames.LeagueofLegends.GameClient") {
-                    return;
-                }
-            }
-
+            
             // check controlkeys
             let controlkey = AppState.shared.controlkeys
                 .filter {!$0.isWhitespace}
