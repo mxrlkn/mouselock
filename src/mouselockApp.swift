@@ -27,6 +27,9 @@ class AppState: ObservableObject {
     @Published var pause: Bool = UserDefaults.standard.bool(forKey: "pause") {
         didSet {UserDefaults.standard.set(self.pause, forKey: "pause")}
     };
+    @Published var leagueonly: Bool = UserDefaults.standard.bool(forKey: "leagueonly") {
+        didSet {UserDefaults.standard.set(self.leagueonly, forKey: "leagueonly")}
+    };
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -49,7 +52,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if (AppState.shared.pause) {
                 return;
             }
-            
+
+            // Is league running?
+            if (AppState.shared.leagueonly) {
+                if (NSWorkspace().frontmostApplication?.bundleIdentifier != "com.riotgames.LeagueofLegends.GameClient") {
+                    return;
+                }
+            }
+
             // check controlkeys
             let controlkey = AppState.shared.controlkeys
                 .filter {!$0.isWhitespace}

@@ -35,6 +35,7 @@ struct ContentView: View {
                 }
             }.padding(.bottom)
             Toggle("Pause", isOn: $appState.pause).toggleStyle(.switch)
+            Toggle("League Only", isOn: $appState.leagueonly).toggleStyle(.switch)
         }.padding(30).padding(.top, -5).frame(width: 340)
     }
 }
