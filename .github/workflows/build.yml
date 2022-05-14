@@ -1,11 +1,11 @@
-name: Build & Release
+name: Build
 on:
   push:
     tags:
       - v*
 
 jobs:
-  build-release:
+  build:
     runs-on: macos-latest
     steps:
       - name: Checkout
