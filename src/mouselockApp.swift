@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
             // pause if not activated
-            if (AppState.shared.active == false && (AppState.shared.activegames[(NSWorkspace().frontmostApplication?.bundleIdentifier)!] ?? false) == false) {
+            if (AppState.shared.active == false && (AppState.shared.activegames[(NSWorkspace().frontmostApplication?.bundleIdentifier ?? "")] ?? false) == false) {
                 return;
             }
             
