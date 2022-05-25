@@ -36,7 +36,7 @@ struct ContentView: View {
             }.padding(.bottom)
             Text("Activate").font(.title2).padding(.bottom, 3)
             VStack(alignment: .leading) {
-                Text("Activate only when one of these programs are in focus or always.").fixedSize(horizontal: false, vertical: true)
+                Text("Activate only when one of these apps are in focus or always.").fixedSize(horizontal: false, vertical: true)
                 ForEach(self.appState.games.sorted(by: >), id: \.key) { key, value in
                     Toggle(value, isOn: Binding(
                         get: {self.appState.activegames[key] ?? false},
