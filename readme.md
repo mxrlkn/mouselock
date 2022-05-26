@@ -19,11 +19,12 @@
 In League of Legends (and potentially other games), the cursor is not locked properly in borderless mode. This app tries to fix that.
 
 
-## Mouse acceleration
-
-To remove mouse acceleration I can recommend [LinearMouse](https://linearmouse.org).
-
-
 ## Requirements
 
 Requires MacOS 11.0 or later.
+
+
+## Tips
+
+- Get [LinearMouse](https://linearmouse.org) to remove mouse acceleration.
+- Enable [MetalBetaTest](https://www.reddit.com/r/LeaguePBE/comments/jgzjg1/mac_on_metal_beta_testing/jgzjg1) for League of legends to get better performance.
