@@ -27,4 +27,4 @@ Requires MacOS 11.0 or later.
 ## Tips
 
 - Get [LinearMouse](https://linearmouse.org) to remove mouse acceleration.
-- Enable [MetalBetaTest](https://www.reddit.com/r/LeaguePBE/comments/jgzjg1/mac_on_metal_beta_testing/jgzjg1) for League of legends to get better performance.
+- Enable [MetalBetaTest](https://www.reddit.com/r/LeaguePBE/comments/jgzjg1/mac_on_metal_beta_testing) for League of Legends to get better performance.
