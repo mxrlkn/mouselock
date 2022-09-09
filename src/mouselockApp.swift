@@ -23,9 +23,6 @@ class AppState: ObservableObject {
     @Published var height: String = UserDefaults.standard.string(forKey: "height") ?? "1080" {
         didSet {UserDefaults.standard.set(self.height, forKey: "height")}
     };
-    @Published var controlkeys: String = UserDefaults.standard.string(forKey: "controlkeys") ?? "" {
-        didSet {UserDefaults.standard.set(self.controlkeys, forKey: "controlkeys")}
-    };
     @Published var active: Bool = UserDefaults.standard.bool(forKey: "active") {
         didSet {UserDefaults.standard.set(self.active, forKey: "active")}
     };
@@ -38,7 +35,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastTime: TimeInterval = 0;
     var lastDeltaX: CGFloat = 0;
     var lastDeltaY: CGFloat = 0;
-    var keyDown: Bool = false;
         
     func applicationDidFinishLaunching(_ notification: Notification) {
         
@@ -60,33 +56,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // pause if not activated
             if (AppState.shared.active == false && (AppState.shared.activegames[(NSWorkspace().frontmostApplication?.bundleIdentifier ?? "")] ?? false) == false) {
-                return;
-            }
-            
-            // check controlkeys
-            let controlkey = AppState.shared.controlkeys
-                .filter {!$0.isWhitespace}
-                .components(separatedBy: ",")
-                .filter { key in return key != ""}
-                .map { CGKeyCode(character: $0) ?? nil}
-                .filter { key in return key != nil}
-                .map { CGEventSource.keyState(.combinedSessionState, key: $0!)}
-                .contains(true)
-            
-            // if any of the controlkeys are pressed down, stop and reset mouse handling
-            if (controlkey) {
-                self.keyDown = true;
-                self.lastDeltaX = 0;
-                self.lastDeltaY = 0;
-                self.lastTime = 0;
-                return;
-            }
-            
-            // keys released
-            if (self.keyDown) {
-                // mouse jumps around after other program releases mouse, waiting for a bit fixes it...
-                self.lastTime = ProcessInfo.processInfo.systemUptime + 0.01;
-                self.keyDown = false;
                 return;
             }
             

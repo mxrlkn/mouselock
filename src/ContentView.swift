@@ -16,24 +16,6 @@ struct ContentView: View {
                     TextField("Height", text: $appState.height)
                 }
             }.padding(.bottom)
-            Text("Control keys").font(.title2).padding(.bottom, 3)
-            VStack(alignment: .leading) {
-                Text("Keys that take control of the mouse, like quick pings in League, comma-separated.").fixedSize(horizontal: false, vertical: true)
-                TextField("z,x,c", text: $appState.controlkeys)
-                Text("Needs accessibility permissions. Click here to check.").font(.caption).padding(.top, -5)
-                .onTapGesture {
-                    // run to reset permissions
-                    // tccutil reset Accessibility mxrlkn.mouselock
-                    AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary);
-                }
-                .onHover { inside in
-                    if inside {
-                        NSCursor.pointingHand.push();
-                    } else {
-                        NSCursor.pop();
-                    }
-                }
-            }.padding(.bottom)
             Text("Activate").font(.title2).padding(.bottom, 3)
             VStack(alignment: .leading) {
                 Text("Activate only when one of these apps are in focus or always.").fixedSize(horizontal: false, vertical: true)
