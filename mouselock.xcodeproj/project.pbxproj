@@ -10,13 +10,15 @@
 		0E577D8927BD9D5F002B61CC /* mouselockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E577D8827BD9D5F002B61CC /* mouselockApp.swift */; };
 		0E577D8B27BD9D5F002B61CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E577D8A27BD9D5F002B61CC /* ContentView.swift */; };
 		0E8210F227CD81D000DB2E0B /* CGKeyCodeInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8210F127CD81D000DB2E0B /* CGKeyCodeInitializers.swift */; };
+		0E96FDD12917F00500D67A09 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E96FDD02917F00500D67A09 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E577D8527BD9D5F002B61CC /* mouselock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mouselock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E577D8527BD9D5F002B61CC /* Mouselock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mouselock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E577D8827BD9D5F002B61CC /* mouselockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mouselockApp.swift; sourceTree = "<group>"; };
 		0E577D8A27BD9D5F002B61CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0E8210F127CD81D000DB2E0B /* CGKeyCodeInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGKeyCodeInitializers.swift; sourceTree = "<group>"; };
+		0E96FDD02917F00500D67A09 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +43,7 @@
 		0E577D8627BD9D5F002B61CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E577D8527BD9D5F002B61CC /* mouselock.app */,
+				0E577D8527BD9D5F002B61CC /* Mouselock.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,6 +54,7 @@
 				0E577D8827BD9D5F002B61CC /* mouselockApp.swift */,
 				0E577D8A27BD9D5F002B61CC /* ContentView.swift */,
 				0E8210F127CD81D000DB2E0B /* CGKeyCodeInitializers.swift */,
+				0E96FDD02917F00500D67A09 /* Media.xcassets */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -59,9 +62,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0E577D8427BD9D5F002B61CC /* mouselock */ = {
+		0E577D8427BD9D5F002B61CC /* Mouselock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E577D9427BD9D60002B61CC /* Build configuration list for PBXNativeTarget "mouselock" */;
+			buildConfigurationList = 0E577D9427BD9D60002B61CC /* Build configuration list for PBXNativeTarget "Mouselock" */;
 			buildPhases = (
 				0E577D8127BD9D5F002B61CC /* Sources */,
 				0E577D8227BD9D5F002B61CC /* Frameworks */,
@@ -71,9 +74,9 @@
 			);
 			dependencies = (
 			);
-			name = mouselock;
+			name = Mouselock;
 			productName = mouselock;
-			productReference = 0E577D8527BD9D5F002B61CC /* mouselock.app */;
+			productReference = 0E577D8527BD9D5F002B61CC /* Mouselock.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -84,7 +87,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					0E577D8427BD9D5F002B61CC = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -105,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0E577D8427BD9D5F002B61CC /* mouselock */,
+				0E577D8427BD9D5F002B61CC /* Mouselock */,
 			);
 		};
 /* End PBXProject section */
@@ -115,6 +118,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E96FDD12917F00500D67A09 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +172,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -229,6 +234,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -259,7 +265,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0.0.10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
@@ -289,7 +296,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0.0.10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
@@ -320,7 +328,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E577D9427BD9D60002B61CC /* Build configuration list for PBXNativeTarget "mouselock" */ = {
+		0E577D9427BD9D60002B61CC /* Build configuration list for PBXNativeTarget "Mouselock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E577D9527BD9D60002B61CC /* Debug */,
