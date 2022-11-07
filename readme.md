@@ -1,6 +1,7 @@
-
 <h1 align="center">
-  mouselock
+  <img src="src/Media.xcassets/AppIcon.appiconset/icon.png" width="110"/>
+  <br>
+  Mouselock
 </h1>
 
 <p align="center">
