@@ -1,11 +1,12 @@
 #!/bin/sh
 set -e
 
-# get latest tag starting with v
-VERSION=$(git tag -l 'v*' --sort=-v:refname | head -1)
+# get version tag or commit id
+VERSION=$(git describe HEAD)
+VERSION=${VERSION:1}
 
 # set app version
-agvtool new-version ${VERSION:1}
+agvtool new-version $VERSION
 
 # build
 xcodebuild -quiet -configuration Release -target Mouselock

@@ -11,12 +11,15 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Build
         run: ./build.sh
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
+          name: mouselock
           path: dist/mouselock.dmg
       - name: Release
         uses: softprops/action-gh-release@v1
