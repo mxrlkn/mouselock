@@ -16,8 +16,7 @@ class AppState: ObservableObject {
     static let shared = AppState();
     
     @Published var games: Dictionary<String, String> = [
-        "com.riotgames.LeagueofLegends.GameClient": "1/League of Legends",
-        "com.valvesoftware.dota2": "2/Dota 2"
+        "com.riotgames.LeagueofLegends.GameClient": "1/League of Legends"
     ];
     
     @Published var width: String = UserDefaults.standard.string(forKey: "width") ?? "1920" {
