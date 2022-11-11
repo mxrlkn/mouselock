@@ -15,7 +15,9 @@ struct mouselockApp: App {
 class AppState: ObservableObject {
     static let shared = AppState();
     
-    @Published var games: Dictionary<String, String> = ["com.riotgames.LeagueofLegends.GameClient": "League of Legends"]
+    @Published var games: Dictionary<String, String> = [
+        "com.riotgames.LeagueofLegends.GameClient": "1/League of Legends"
+    ];
     
     @Published var width: String = UserDefaults.standard.string(forKey: "width") ?? "1920" {
         didSet {UserDefaults.standard.set(self.width, forKey: "width")}
