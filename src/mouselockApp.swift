@@ -6,11 +6,31 @@ struct mouselockApp: App {
     @StateObject var appState = AppState.shared
 
     var body: some Scene {
+        if #available(macOS 14, *) {
+            MenuBarExtra {
+                SettingsLink {
+                    Text("Settings")
+                }
+                Button("Quit") {
+                    NSApp.terminate(nil)
+                }
+            } label: {
+                let image: NSImage = {
+                    let ratio = $0.size.height / $0.size.width
+                    $0.size.height = 32
+                    $0.size.width = 32 / ratio
+                    return $0
+                }(NSImage(named: "AppIcon")!)
+                Image(nsImage: image)
+            }
+        }
+
         Settings {
             ContentView(appState: appState)
         }
     }
 }
+
 
 class AppState: ObservableObject {
     static let shared = AppState();
@@ -117,9 +137,8 @@ class StatusItem {
 
     private lazy var menu: NSMenu = {
         let menu = NSMenu()
-
         let bringMainMenu = NSMenuItem(title: String("Settings"), action: #selector(openSettingsMenu), keyEquivalent: "")
-        let activationShortcut = NSMenuItem(title: activeStatus, action: #selector(toggleActive), keyEquivalent: "")
+        //let activationShortcut = NSMenuItem(title: activeStatus, action: #selector(toggleActive), keyEquivalent: "")
         let quitItem = NSMenuItem(title: String(format: NSLocalizedString("Quit %@", comment: ""), "Mouselock"), action: #selector(quit), keyEquivalent: "q")
 
         menu.items = [
@@ -134,13 +153,14 @@ class StatusItem {
     }()
 
     init() {
-        if let button = statusItem.button {
-            button.image = NSImage(named: "AppIcon")
-            button.image?.size = NSSize(width: 32, height: 32)
-            button.target = self
+        if #unavailable(macOS 14) {
+            if let button = statusItem.button {
+                button.image = NSImage(named: "AppIcon")
+                button.image?.size = NSSize(width: 32, height: 32)
+                button.target = self
+            }
+            statusItem.menu = menu
         }
-
-        statusItem.menu = menu
     }
 
     @objc private func openSettingsMenu() {
